@@ -1,0 +1,29 @@
+{
+    "name": "com.donnaiwan.vscode.fileheadercomment",
+    "displayName": "File Header Comment",
+    "description": "Insert File Header Comment such as date, time",
+    "version": "0.0.1",
+    "publisher": "doi",
+    "engines": {
+        "vscode": "^1.0.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.insertFileHeaderComment"
+    ],
+    "main": "./extension",
+    "contributes": {
+        "commands": [{
+            "command": "extension.insertFileHeaderComment",
+            "title": "FileHeaderComment: Insert Comment at Cursor"
+        }]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "devDependencies": {
+        "vscode": "^0.11.0"
+    }
+}
