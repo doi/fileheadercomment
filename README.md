@@ -14,7 +14,72 @@ For example if there is an image subfolder under your extension project workspac
 
 ## Requirements
 
+default configuration
 
+```
+	"fileHeaderComment.language":{
+		"*":{
+			"commentbegin": "/*",
+			"commentprefix": " *",
+			"commentend": " */",
+			"company": "Your Company"
+		}
+	},
+	"fileHeaderComment.template":[
+		"${commentbegin}",
+		"${commentprefix} Created on ${date}",
+		"${commentprefix}",
+		"${commentprefix} Copyright (c) ${year} ${company}",
+		"${commentend}"
+	]
+```
+
+custom variable
+
+	"fileHeaderComment.language":{
+		"*":{
+			"commentbegin": "/*",
+			"commentprefix": " *",
+			"commentend": " */",
+			"company": "Your Company",
+			"myvar1": "My Variable 1",
+			"myvar2": "My Variable 2"
+		}
+	}
+
+use your variable in template like
+
+	"fileHeaderComment.template":[
+		"${commentbegin}",
+		"${commentprefix} Created on ${date}",
+		"${commentprefix}",
+		"${commentprefix} Copyright (c) ${year} ${company}",
+		"my variables are ${myvar1} and ${myvar2}",
+		"${commentend}"
+	]
+
+
+per language
+
+	"fileHeaderComment.language":{
+		"*": {
+			...
+		},
+		"php":{
+			"commentbegin": "/*",
+			"commentprefix": " *",
+			"commentend": " */",
+			"company": "Your Company"
+		}
+	}
+
+- `date` :
+- `time` :
+- `time24h` : time in 24 hour format
+- `datetime`
+- `datetime24h` : date and time in 24 hour format
+- `company` : Your Company
+- `year`
 
 ## Extension Settings
 

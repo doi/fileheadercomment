@@ -21,17 +21,73 @@ function insertFileHeaderComment(){
     }
     var date = new Date(),
         replace = {
-            'commentbegin': '/*',
-            'commentprefix': ' *',
-            'commentend': ' */',
             'date': date.toDateString(),
             'time': date.toLocaleTimeString(),
+            'time24h': date.getHours()+':'+date.getMinutes()+':'+date.getSeconds(),
             'year': date.getFullYear(),
             'company': 'Your Company'
         };
-    replace.now = replace.date+ " "+replace.time;
-
+    
+    replace = Object.assign(replace, {
+        'commentbegin': '/*',
+        'commentprefix': ' *',
+        'commentend': ' */',
+        'datetime': replace.date+ " "+replace.time,
+        'datetime24h': replace.date+ " "+replace.time24h
+    });
+    replace.now = replace.datetime;
+    replace.now24h = replace.datetime24h;
     replace = Object.assign(replace, r_default);
+    
+    switch(lang_id){
+        case "swift":
+            replace.commentbegin = "/**";
+            break;
+        case "lua":
+            replace = Object.assign(replace, {
+                'commentbegin': "--[[",
+                'commentprefix': "--",
+                'commentend': "--]]"
+            });
+            break;
+        case "perl":
+        case "ruby":
+            replace = Object.assign(replace, {
+                'commentbegin': "#",
+                'commentprefix': "#",
+                'commentend': "#"
+            });
+            break;
+        case "vb":
+            replace = Object.assign(replace, {
+                'commentbegin': "'",
+                'commentprefix': "'",
+                'commentend': "'"
+            });
+            break;
+        case 'clojure':
+            replace = Object.assign(replace, {
+                'commentbegin': ";;",
+                'commentprefix': ";",
+                'commentend': ";;"
+            });
+            break;
+        case 'python':
+            replace = Object.assign(replace, {
+                'commentbegin': "'''",
+                'commentprefix': "\b",
+                'commentend': "'''"
+            });
+            break;
+        case "xml":
+        case "html":
+            replace = Object.assign(replace, {
+                'commentbegin': "<!--",
+                'commentprefix': "\b",
+                'commentend': "-->"
+            });
+            break;
+    }
     replace = Object.assign(replace, r_lang);
 
     if(!editor)
@@ -42,13 +98,20 @@ function insertFileHeaderComment(){
             return string.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1");
         };
     for(var r in replace){
-        var regexp = new RegExp(escape("${"+r+"}"), "gi");
-        s_template = s_template.replace(regexp, replace[r]);
+        var regexp = new RegExp(escape("${"+r+"}"), "gi"),
+            replace_with = replace[r];
+        if(replace_with.join){
+            replace_with = replace_with.join("\n"+ replace.commentprefix);
+        }else if(replace_with.replace){
+            replace_with = replace_with.replace("\n", "\n"+ replace.commentprefix);
+        }
+
+        s_template = s_template.replace(regexp, replace_with);
     }
 
     //insert header comment at cursor
     editor.edit(function(edit){
-        edit.insert(editor.selection.active, s_template);
+        edit.insert(editor.selection.active, s_template+"\n");
     });
 }
 exports.insertFileHeaderComment = insertFileHeaderComment;

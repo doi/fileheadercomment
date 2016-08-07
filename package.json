@@ -1,5 +1,5 @@
 {
-    "name": "com.donnaiwan.vscode.fileheadercomment",
+    "name": "fileheadercomment",
     "displayName": "File Header Comment",
     "description": "Insert File Header Comment such as date, time",
     "version": "0.0.1",
