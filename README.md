@@ -1,23 +1,33 @@
-# fileheader README
+# FileHeaderComment
 
-This is the README for your extension "fileheader". After writing up a brief description, we recommend including the following sections.
+This extension allow you to insert timestamp, copyright or any information to your file like comment below
+
+	/*
+	 * Created on Sun Aug 07 2016 14:6:41
+	 *
+	 * Copyright (c) 2016 - Your Company
+	 */
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- insert defined parameter like `date`, `time`, `datetime`, `year`, `company`
+- insert your own parameter
+- define template and parameter for each programming language
 
-For example if there is an image subfolder under your extension project workspace:
+## Install
 
-\!\[feature X\]\(images/feature-x.png\)
+	ext install fileheadercomment
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Extension Settings
 
-## Requirements
+By default you don't have to set anything. It will detect most programming language for appropriate comment syntax.
 
-default configuration
+If you want to set your own parameter and template, you can read configuration below
+
+This is default configuration
 
 ```
-	"fileHeaderComment.language":{
+	"fileHeaderComment.parameter":{
 		"*":{
 			"commentbegin": "/*",
 			"commentprefix": " *",
@@ -25,18 +35,20 @@ default configuration
 			"company": "Your Company"
 		}
 	},
-	"fileHeaderComment.template":[
-		"${commentbegin}",
-		"${commentprefix} Created on ${date}",
-		"${commentprefix}",
-		"${commentprefix} Copyright (c) ${year} ${company}",
-		"${commentend}"
-	]
+	"fileHeaderComment.template":{
+		"*":[
+			"${commentbegin}",
+			"${commentprefix} Created on ${date}",
+			"${commentprefix}",
+			"${commentprefix} Copyright (c) ${year} ${company}",
+			"${commentend}"
+		]
+	}
 ```
 
 custom variable
 
-	"fileHeaderComment.language":{
+	"fileHeaderComment.parameter":{
 		"*":{
 			"commentbegin": "/*",
 			"commentprefix": " *",
@@ -49,82 +61,80 @@ custom variable
 
 use your variable in template like
 
-	"fileHeaderComment.template":[
-		"${commentbegin}",
-		"${commentprefix} Created on ${date}",
-		"${commentprefix}",
-		"${commentprefix} Copyright (c) ${year} ${company}",
-		"my variables are ${myvar1} and ${myvar2}",
-		"${commentend}"
-	]
+	"fileHeaderComment.template":{
+		"*":[
+			"${commentbegin}",
+			"${commentprefix} Created on ${date}",
+			"${commentprefix}",
+			"${commentprefix} Copyright (c) ${year} ${company}",
+			"${commentprefix} my variables are ${myvar1} and ${myvar2}",
+			"${commentend}"
+		]
+	}
 
 
-per language
+You can set different parameter for specific programming language
 
-	"fileHeaderComment.language":{
+	"fileHeaderComment.parameter":{
 		"*": {
 			...
 		},
 		"php":{
-			"commentbegin": "/*",
-			"commentprefix": " *",
-			"commentend": " */",
+			"commentbegin": "//",
+			"commentprefix": "//",
+			"commentend": "//",
 			"company": "Your Company"
 		}
 	}
 
-- `date` :
-- `time` :
-- `time24h` : time in 24 hour format
-- `datetime`
-- `datetime24h` : date and time in 24 hour format
+Parameter defined in extension
+
+- `date` : current date
+- `time` : current time
+- `time24h` : current time in 24 hour format
+- `datetime`: current date + time
+- `datetime24h` : current date + time in 24 hour format
 - `company` : Your Company
-- `year`
+- `year`: current year
 
-## Extension Settings
+### Example of template with MIT License
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+	"fileHeaderComment.parameter":{
+		"*":{
+			"author": "Your Name",
+			"license_mit":[
+				"The MIT License (MIT)",
+				" Copyright (c) ${year} ${author}",
+				"",
+				" Permission is hereby granted, free of charge, to any person obtaining a copy of this software",
+				" and associated documentation files (the \"Software\"), to deal in the Software without restriction,",
+				" including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,",
+				" and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,",
+				" subject to the following conditions:",
+				"",
+				" The above copyright notice and this permission notice shall be included in all copies or substantial",
+				" portions of the Software.",
+				"",
+				" THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED",
+				" TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL",
+				" THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,",
+				" TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+			]
+		}
+	},
+	"fileHeaderComment.template":{
+		"*":[
+			"${commentbegin}",
+			"${commentprefix} Created on ${date}",
+			"${commentprefix}",
+			"${commentprefix} ${license_mit}",
+			"${commentend}"
+		]
+	}
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
 
-### 1.0.0
+### 0.0.1
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on OSX or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on OSX or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (OSX) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Initial release
