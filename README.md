@@ -22,7 +22,9 @@ This extension allow you to insert timestamp, copyright or any information to yo
 
 By default you don't have to set anything. It will detect most programming language for appropriate comment syntax.
 
-If you want to set your own parameter and template, you can read configuration below
+Execute it from `Command Pallete` (menu View - Command Pallete...) then type `FileHeaderComment: Insert Comment at Cursor`
+
+If you want to set your own parameter and template (set from menu Preferences - User Settings on osx), you can read explanation below
 
 This is default configuration
 
