@@ -27,20 +27,24 @@ function insertFileHeaderComment(picked_template){
         root = workspace.rootPath,
         prefix = 'fileHeaderComment',
         lang_id = editor.document.languageId,
-        t_default = workspace.getConfiguration(prefix+".template.*"),
-        // t_lang = workspace.getConfiguration(prefix+".template."+lang_id),
-        r_default = workspace.getConfiguration(prefix+".parameter.*"),
-        r_lang = workspace.getConfiguration(prefix+".parameter."+lang_id),
+        t_default = workspace.getConfiguration(prefix+".template").get('*'),
+        // t_lang = workspace.getConfiguration(prefix+".template".get(lang_id),
+        r_default = workspace.getConfiguration(prefix+".parameter").get('*'),
+        r_lang = workspace.getConfiguration(prefix+".parameter").get(lang_id),
         template = [];
     if(picked_template){
-        t_default = workspace.getConfiguration(prefix+".template."+picked_template);
+        t_default = workspace.getConfiguration(prefix+".template").get(picked_template);
+        var tmp_r_default = workspace.getConfiguration(prefix+".parameter").get(picked_template);
+        if(tmp_r_default instanceof Object){
+            Object.assign(r_default, tmp_r_default);
+        }
     }
 
     //remove feature template detection per language
     //this feature is replaced by "select from available templates"
     // if((t_lang instanceof Array)){
     //     template = t_lang;
-    // }else 
+    // }else
     if(t_default instanceof Array){
         template = t_default;
     }else{
@@ -70,14 +74,14 @@ function insertFileHeaderComment(picked_template){
     });
     replace.now = replace.datetime;
     replace.now24h = replace.datetime24h;
-    replace = Object.assign(replace, r_default);
+    Object.assign(replace, r_default);
     
     switch(lang_id){
         case "swift":
             replace.commentbegin = "/**";
             break;
         case "lua":
-            replace = Object.assign(replace, {
+            Object.assign(replace, {
                 'commentbegin': "--[[",
                 'commentprefix': "--",
                 'commentend': "--]]"
@@ -85,28 +89,28 @@ function insertFileHeaderComment(picked_template){
             break;
         case "perl":
         case "ruby":
-            replace = Object.assign(replace, {
+            Object.assign(replace, {
                 'commentbegin': "#",
                 'commentprefix': "#",
                 'commentend': "#"
             });
             break;
         case "vb":
-            replace = Object.assign(replace, {
+            Object.assign(replace, {
                 'commentbegin': "'",
                 'commentprefix': "'",
                 'commentend': "'"
             });
             break;
         case 'clojure':
-            replace = Object.assign(replace, {
+            Object.assign(replace, {
                 'commentbegin': ";;",
                 'commentprefix': ";",
                 'commentend': ";;"
             });
             break;
         case 'python':
-            replace = Object.assign(replace, {
+            Object.assign(replace, {
                 'commentbegin': "'''",
                 'commentprefix': "\b",
                 'commentend': "'''"
@@ -114,14 +118,14 @@ function insertFileHeaderComment(picked_template){
             break;
         case "xml":
         case "html":
-            replace = Object.assign(replace, {
+            Object.assign(replace, {
                 'commentbegin': "<!--",
                 'commentprefix': "\b",
                 'commentend': "-->"
             });
             break;
     }
-    replace = Object.assign(replace, r_lang);
+    Object.assign(replace, r_lang);
 
     if(!editor)
         return;
