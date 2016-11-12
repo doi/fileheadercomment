@@ -11,13 +11,17 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.insertFileHeaderComment"
+        "onCommand:extension.insertFileHeaderComment",
+        "onCommand:extension.insertFileHeaderCommentOther"
     ],
     "main": "./extension",
     "contributes": {
         "commands": [{
             "command": "extension.insertFileHeaderComment",
-            "title": "FileHeaderComment: Insert Comment at Cursor"
+            "title": "FileHeaderComment: Insert Default Template at Cursor"
+        },{
+            "command": "extension.insertFileHeaderCommentOther",
+            "title": "FileHeaderComment: Select from Available Templates"
         }]
     },
     "scripts": {
@@ -25,5 +29,13 @@
     },
     "devDependencies": {
         "vscode": "^0.11.0"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/doi/fileheadercomment.git"
+    },
+    "bugs": {
+        "url": "https://github.com/doi/fileheadercomment/issues"
+    },
+    "license": "SEE LICENSE IN LICENSE.md"
 }

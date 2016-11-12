@@ -21,21 +21,27 @@
 
 var vscode = require('vscode');
 
-function insertFileHeaderComment(){
+function insertFileHeaderComment(picked_template){
     var workspace = vscode.workspace,
         editor = vscode.window.activeTextEditor,
         root = workspace.rootPath,
         prefix = 'fileHeaderComment',
         lang_id = editor.document.languageId,
         t_default = workspace.getConfiguration(prefix+".template.*"),
-        t_lang = workspace.getConfiguration(prefix+".template."+lang_id),
+        // t_lang = workspace.getConfiguration(prefix+".template."+lang_id),
         r_default = workspace.getConfiguration(prefix+".parameter.*"),
         r_lang = workspace.getConfiguration(prefix+".parameter."+lang_id),
         template = [];
+    if(picked_template){
+        t_default = workspace.getConfiguration(prefix+".template."+picked_template);
+    }
 
-    if((t_lang instanceof Array)){
-        template = t_lang;
-    }else if(t_default instanceof Array){
+    //remove feature template detection per language
+    //this feature is replaced by "select from available templates"
+    // if((t_lang instanceof Array)){
+    //     template = t_lang;
+    // }else 
+    if(t_default instanceof Array){
         template = t_default;
     }else{
         template = [
@@ -136,7 +142,7 @@ function insertFileHeaderComment(){
         s_template = s_template.replace(regexp, replace_with);
     }
 
-    //parse on more time
+    //parse one more time
     //sometimes parameter has parameter inside it
     for(var r in replace){
         var regexp = new RegExp(escape("${"+r+"}"), "gi"),
@@ -150,3 +156,22 @@ function insertFileHeaderComment(){
     });
 }
 exports.insertFileHeaderComment = insertFileHeaderComment;
+function insertFileHeaderCommentOther(){
+    var workspace = vscode.workspace,
+        prefix = 'fileHeaderComment',
+        t_others = workspace.getConfiguration(prefix+".template");
+
+    t_others = JSON.parse(JSON.stringify(t_others));
+    var template_list = Object.keys(t_others);
+
+    if(template_list.length == 0){
+        template_list.push("*");
+    }else if(template_list.indexOf("*") == -1){
+        template_list.splice(0, 0, "*");
+    }
+    vscode.window.showQuickPick(template_list,{placeHolder: "Choose template"})
+        .then(function(val){
+            insertFileHeaderComment(val);
+        });
+}
+exports.insertFileHeaderCommentOther = insertFileHeaderCommentOther;
