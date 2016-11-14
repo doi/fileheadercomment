@@ -27,10 +27,10 @@ function insertFileHeaderComment(){
         root = workspace.rootPath,
         prefix = 'fileHeaderComment',
         lang_id = editor.document.languageId,
-        t_default = workspace.getConfiguration(prefix+".template.*"),
-        t_lang = workspace.getConfiguration(prefix+".template."+lang_id),
-        r_default = workspace.getConfiguration(prefix+".parameter.*"),
-        r_lang = workspace.getConfiguration(prefix+".parameter."+lang_id),
+        t_default = workspace.getConfiguration(prefix+".template").get("*"),
+        t_lang = workspace.getConfiguration(prefix+".template").get(lang_id),
+        r_default = workspace.getConfiguration(prefix+".parameter").get("*"),
+        r_lang = workspace.getConfiguration(prefix+".parameter").get(lang_id),
         template = [];
 
     if((t_lang instanceof Array)){
