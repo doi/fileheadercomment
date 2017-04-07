@@ -131,6 +131,9 @@ You can use parameters below in your template
 
 ## Release Notes
 
+### 0.0.3
+- fixing "unknown configuration setting" message in Settings
+
 ### 0.0.2
 - multiple templates
 - bugfixes
