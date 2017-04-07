@@ -22,7 +22,25 @@
         },{
             "command": "extension.insertFileHeaderCommentOther",
             "title": "FileHeaderComment: Select from Available Templates"
-        }]
+        }],
+            "configuration": {
+                "type": "object",
+                "title": "FileHeaderComment Configuration",
+                "properties": {
+                    "fileHeaderComment.parameter": {
+                        "type": "object",
+                        "default": {
+                            "*":{}
+                        },
+                        "description": "Configure parameter/variable used in comment"
+                    },
+                    "fileHeaderComment.template": {
+                        "type": "object",
+                        "default": {},
+                        "description": "Define custom template"
+                    }
+                }
+            }
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install"
