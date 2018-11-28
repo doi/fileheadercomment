@@ -89,6 +89,7 @@ function insertFileHeaderComment(picked_template){
             break;
         case "perl":
         case "ruby":
+        case "yaml":
             Object.assign(replace, {
                 'commentbegin': "#",
                 'commentprefix': "#",
