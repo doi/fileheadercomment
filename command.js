@@ -61,6 +61,8 @@ function insertFileHeaderComment(picked_template){
             'date': date.toDateString(),
             'time': date.toLocaleTimeString(),
             'time24h': date.getHours()+':'+date.getMinutes()+':'+date.getSeconds(),
+            'day': date.getDate(),
+            'month': date.getMonth()+1,
             'year': date.getFullYear(),
             'company': 'Your Company'
         };
