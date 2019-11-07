@@ -24,7 +24,7 @@ var vscode = require('vscode');
 function insertFileHeaderComment(picked_template){
     var workspace = vscode.workspace,
         editor = vscode.window.activeTextEditor,
-        root = workspace.rootPath,
+        // root = workspace.rootPath,
         prefix = 'fileHeaderComment',
         lang_id = editor.document.languageId,
         t_default = workspace.getConfiguration(prefix+".template").get('*'),
@@ -57,15 +57,21 @@ function insertFileHeaderComment(picked_template){
         ];
     }
     var date = new Date(),
+        h = (date.getHours()+"").padStart(2, '0'),
+        m = (date.getMinutes()+"").padStart(2, '0'),
+        s = (date.getSeconds()+"").padStart(2, '0'),
         replace = {
             'date': date.toDateString(),
             'time': date.toLocaleTimeString(),
-            'time24h': date.getHours()+':'+date.getMinutes()+':'+date.getSeconds(),
+            'time24h': h+':'+m+':'+s,
             'day': date.getDate(),
             'month': date.getMonth()+1,
             'year': date.getFullYear(),
             'company': 'Your Company',
-            'filename': vscode.window.activeTextEditor.document.fileName.replace(/^.*[\\\/]/, '')
+            'filename': vscode.window.activeTextEditor.document.fileName.replace(/^.*[\\\/]/, ''),
+            'hour': h,
+            'minute': m,
+            'second': s
         };
     
     replace = Object.assign(replace, {
