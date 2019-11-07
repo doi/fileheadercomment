@@ -62,7 +62,8 @@ function insertFileHeaderComment(picked_template){
             'time': date.toLocaleTimeString(),
             'time24h': date.getHours()+':'+date.getMinutes()+':'+date.getSeconds(),
             'year': date.getFullYear(),
-            'company': 'Your Company'
+            'company': 'Your Company',
+            'filename': vscode.window.activeTextEditor.document.fileName.replace(/^.*[\\\/]/, '')
         };
     
     replace = Object.assign(replace, {
