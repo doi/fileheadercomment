@@ -10,7 +10,7 @@ This extension allow you to insert timestamp, copyright or any information to yo
 
 ## Features
 
-- insert defined parameter like `date`, `time`, `datetime`, `year`, `company`
+- insert defined parameter like `date`, `time`, `datetime`, `day`, `month`, `year`, `hour`, `minute`, `second`, `company`, `filename`
 - insert your own parameter and template
 - define multiple templates
 
@@ -53,7 +53,7 @@ This is default configuration
 	}
 ```
 
-Define all custom variables/paramenters in star `*` key like
+Define all custom variables/paramenters in asterisk `*` like
 
 ```
 "fileHeaderComment.parameter":{
@@ -65,7 +65,7 @@ Define all custom variables/paramenters in star `*` key like
 }
 ```
 
-Use your variable in template like (star sign `*` will be default template)
+Use your variable in template like (asterisk `*` will be default template)
 
 ```
 "fileHeaderComment.template":{
@@ -125,14 +125,23 @@ You can use parameters below in your template
 - `datetime`: print current date + time
 - `datetime24h` : print current date + time in 24 hour format
 - `company` : print "Your Company"
+- `day`: print day of the month
+- `month`: print current month
 - `year`: print current year
+- `hour`: print current hour (24h)
+- `minute`: print current minute
+- `second`: print current second
+- `filename`: print filename
 
 
 
 ## Release Notes
+### 0.0.4
+- support yaml, shellscript language (thanks to @waddyvic)
+- add day, month, hour, minute, second, filename parameter (thanks to @rcabg, @ternvein)
 
 ### 0.0.3
-- fixing "unknown configuration setting" message in Settings
+- fixing "unknown configuration setting" message in Settings (thanks to @isuda)
 
 ### 0.0.2
 - multiple templates
