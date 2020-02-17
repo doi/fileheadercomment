@@ -100,6 +100,7 @@ function insertFileHeaderComment(picked_template){
         case "ruby":
         case "shellscript":
         case "yaml":
+        case "python":
             Object.assign(replace, {
                 'commentbegin': "#",
                 'commentprefix': "#",
@@ -120,18 +121,11 @@ function insertFileHeaderComment(picked_template){
                 'commentend': ";;"
             });
             break;
-        case 'python':
-            Object.assign(replace, {
-                'commentbegin': "'''",
-                'commentprefix': "\b",
-                'commentend': "'''"
-            });
-            break;
         case "xml":
         case "html":
             Object.assign(replace, {
                 'commentbegin': "<!--",
-                'commentprefix': "\b",
+                'commentprefix': " ",
                 'commentend': "-->"
             });
             break;
