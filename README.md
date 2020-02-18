@@ -3,9 +3,9 @@
 This extension allow you to insert timestamp, copyright or any information to your file like comment below
 
 	/*
-	 * Created on Sun Aug 07 2016 14:6:41
+	 * Created on Tue Feb 18 2020
 	 *
-	 * Copyright (c) 2016 - Your Company
+	 * Copyright (c) 2020 - Your Company
 	 */
 
 ## Features
@@ -136,6 +136,8 @@ You can use parameters below in your template
 
 
 ## Release Notes
+### 0.0.5
+- fixing python comment style (thanks to @ronak1009)
 ### 0.0.4
 - support yaml, shellscript language (thanks to @waddyvic)
 - add day, month, hour, minute, second, filename parameter (thanks to @rcabg, @ternvein)

@@ -2,7 +2,7 @@
     "name": "fileheadercomment",
     "displayName": "File Header Comment",
     "description": "Insert File Header Comment such as date, time",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "doi",
     "engines": {
         "vscode": "^1.0.0"
