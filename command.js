@@ -125,7 +125,7 @@ function insertFileHeaderComment(picked_template){
         case "html":
             Object.assign(replace, {
                 'commentbegin': "<!--",
-                'commentprefix': " ",
+                'commentprefix': "",
                 'commentend': "-->"
             });
             break;
