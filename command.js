@@ -20,6 +20,7 @@
  */
 
 var vscode = require('vscode');
+var os = require('os');
 
 function insertFileHeaderComment(picked_template){
     var workspace = vscode.workspace,
@@ -60,6 +61,7 @@ function insertFileHeaderComment(picked_template){
         h = (date.getHours()+"").padStart(2, '0'),
         m = (date.getMinutes()+"").padStart(2, '0'),
         s = (date.getSeconds()+"").padStart(2, '0'),
+        username = os.userInfo().username,
         replace = {
             'date': date.toDateString(),
             'time': date.toLocaleTimeString(),
@@ -68,6 +70,7 @@ function insertFileHeaderComment(picked_template){
             'month': date.getMonth()+1,
             'year': date.getFullYear(),
             'company': 'Your Company',
+            'username': username,
             'filename': vscode.window.activeTextEditor.document.fileName.replace(/^.*[\\\/]/, ''),
             'hour': h,
             'minute': m,
