@@ -66,6 +66,7 @@ function insertFileHeaderComment(picked_template){
             'time24h': h+':'+m+':'+s,
             'day': date.getDate(),
             'month': date.getMonth()+1,
+			'month3': date.toLocaleString('en-us', {month:'short'}),
             'year': date.getFullYear(),
             'company': 'Your Company',
             'filename': vscode.window.activeTextEditor.document.fileName.replace(/^.*[\\\/]/, ''),
