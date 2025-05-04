@@ -1,9 +1,9 @@
 {
     "name": "fileheadercomment",
     "displayName": "File Header Comment",
-    "description": "Insert File Header Comment such as date, time",
-    "version": "0.0.5",
-    "publisher": "doi",
+    "description": "Insert File Header Comment such as date, time and environment variables",
+    "version": "0.0.6",
+    "publisher": "doi_bdw",
     "engines": {
         "vscode": "^1.0.0"
     },
@@ -14,39 +14,79 @@
         "onCommand:extension.insertFileHeaderComment",
         "onCommand:extension.insertFileHeaderCommentOther"
     ],
-    "main": "./extension",
+    "main": "./out/extension.js",
     "contributes": {
-        "commands": [{
-            "command": "extension.insertFileHeaderComment",
-            "title": "FileHeaderComment: Insert Default Template at Cursor"
-        },{
-            "command": "extension.insertFileHeaderCommentOther",
-            "title": "FileHeaderComment: Select from Available Templates"
-        }],
-            "configuration": {
-                "type": "object",
-                "title": "FileHeaderComment Configuration",
-                "properties": {
-                    "fileHeaderComment.parameter": {
-                        "type": "object",
-                        "default": {
-                            "*":{}
-                        },
-                        "description": "Configure parameter/variable used in comment"
+        "commands": [
+            {
+                "command": "extension.insertFileHeaderComment",
+                "title": "FileHeaderComment: Insert Default Template at Cursor"
+            },
+            {
+                "command": "extension.insertFileHeaderCommentOther",
+                "title": "FileHeaderComment: Select from Available Templates"
+            },
+            {
+                "command": "extension.insertFileHeaderCommentMenu",
+                "title": "Insert Default File Header Comment"
+            },
+            {
+                "command": "extension.insertFileHeaderCommentOtherMenu",
+                "title": "Select A File Header Comment To Insert..."
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "extension.insertFileHeaderCommentMenu",
+                    "when": "editorTextFocus",
+                    "group": "1_modification"
+                },
+                {
+                    "command": "extension.insertFileHeaderCommentOtherMenu",
+                    "when": "editorTextFocus",
+                    "group": "1_modification"
+                }
+            ]
+        },    
+        "configuration": {
+            "type": "object",
+            "title": "FileHeaderComment Configuration",
+            "properties": {
+                "fileHeaderComment.parameter": {
+                    "type": "object",
+                    "default": {
+                        "*": {}
                     },
-                    "fileHeaderComment.template": {
-                        "type": "object",
-                        "default": {},
-                        "description": "Define custom template"
-                    }
+                    "description": "Configure parameter/variable used in comment"
+                },
+                "fileHeaderComment.template": {
+                    "type": "object",
+                    "default": {},
+                    "description": "Define custom template"
                 }
             }
+        }
     },
     "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install"
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
     },
     "devDependencies": {
-        "vscode": "^0.11.0"
+        "@types/glob": "^8.1.0",
+        "@types/mocha": "^10.0.6",
+        "@types/node": "20.x",
+        "@types/vscode": "^1.99.1",
+        "@typescript-eslint/eslint-plugin": "^6.13.1",
+        "@typescript-eslint/parser": "^6.13.1",
+        "@vscode/test-electron": "^2.3.9",
+        "eslint": "^8.55.0",
+        "glob": "^10.3.10",
+        "mocha": "^10.2.0",
+        "typescript": "^5.3.3"
     },
     "repository": {
         "type": "git",
