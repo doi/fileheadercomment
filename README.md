@@ -60,7 +60,8 @@ Define all custom variables/paramenters in asterisk `*` like
 	"*":{
 		"company": "Your Company"
 		"myvar1": "My Variable 1",
-		"myvar2": "My Variable 2"
+		"myvar2": "My Variable 2",
+		"myenv": "${env:MY_OS_VARIABLE}"
 	}
 }
 ```
@@ -74,7 +75,7 @@ Use your variable in template like (asterisk `*` will be default template)
 		"${commentprefix} Created on ${date}",
 		"${commentprefix}",
 		"${commentprefix} Copyright (c) ${year} ${company}",
-		"${commentprefix} my variables are ${myvar1} and ${myvar2}",
+		"${commentprefix} my variables are ${myvar1}, ${myvar2} and ${myenv}",
 		"${commentend}"
 	]
 }
@@ -115,7 +116,7 @@ You can define multiple templates, for instance template for MIT License
 	]
 }
 ```
-You can use your `mit` template above by calling it through 	`Command Pallete` and choose `FileHeaderComment: Select from Available Templates`.
+You can use your `mit` template above by calling it through `Command Pallete` and choose `FileHeaderComment: Select from Available Templates`.
 
 You can use parameters below in your template
 
@@ -132,12 +133,27 @@ You can use parameters below in your template
 - `minute`: print current minute
 - `second`: print current second
 - `filename`: print filename
+- `filepath`: print the absolute path of the file
+- `parentpath`: print the parent path of the file
+- `repository`: print the name of the git repository the file belongs to
+- `repositoryurl`: print the URL to belonging to the git repository
+- `author`: print the git user name
+- `email`: print the git user email
+- `package`: print the name of the package the file belongs to
 
+You can also include environment variables using the prefix `env:`, for example `${env:HOME}`
 
 
 ## Release Notes
+### 0.0.6
+- Updated with typescript and using Yo Code (thanks to @bwilliams-sequence)
+- Added right-click context menu support (thanks to @bwilliams-sequence)
+- Added support for more default variables, useful for git workspaces (thanks to @bwilliams-sequence)
+- Added support for OS environment variables (thanks to @bwilliams-sequence)
+
 ### 0.0.5
 - fixing python comment style (thanks to @ronak1009)
+
 ### 0.0.4
 - support yaml, shellscript language (thanks to @waddyvic)
 - add day, month, hour, minute, second, filename parameter (thanks to @rcabg, @ternvein)
