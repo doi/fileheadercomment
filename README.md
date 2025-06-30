@@ -10,7 +10,7 @@ This extension allow you to insert timestamp, copyright or any information to yo
 
 ## Features
 
-- insert defined parameter like `date`, `time`, `datetime`, `day`, `month`, `year`, `hour`, `minute`, `second`, `company`, `filename`
+- insert defined parameter like `date`, `time`, `datetime`, `day`, `month`, `month3`, `year`, `hour`, `minute`, `second`, `company`, `filename`
 - insert your own parameter and template
 - define multiple templates
 
@@ -127,6 +127,7 @@ You can use parameters below in your template
 - `company` : print "Your Company"
 - `day`: print day of the month
 - `month`: print current month
+- `month3`: first-3 letters of the month, e.g "Mar"
 - `year`: print current year
 - `hour`: print current hour (24h)
 - `minute`: print current minute
@@ -136,6 +137,8 @@ You can use parameters below in your template
 
 
 ## Release Notes
+### 0.0.6
+- add month3 (thanks to @kfsone)
 ### 0.0.5
 - fixing python comment style (thanks to @ronak1009)
 ### 0.0.4
