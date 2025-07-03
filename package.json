@@ -1,59 +1,83 @@
 {
-    "name": "fileheadercomment",
-    "displayName": "File Header Comment",
-    "description": "Insert File Header Comment such as date, time",
-    "version": "0.0.6",
-    "publisher": "doi",
-    "engines": {
-        "vscode": "^1.0.0"
-    },
-    "categories": [
-        "Other"
+  "name": "fileheadercomment",
+  "displayName": "File Header Comment",
+  "description": "Insert File Header Comment such as date, time",
+  "version": "0.0.6",
+  "publisher": "doi",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "fileheadercomment.insertFileHeaderComment",
+        "title": "FileHeaderComment: Insert Default Template at Cursor"
+      },
+      {
+        "command": "fileheadercomment.insertFileHeaderCommentOther",
+        "title": "FileHeaderComment: Select from Available Templates"
+      },
+      {
+        "command": "fileheadercomment.printParameters",
+        "title": "FileHeaderComment: Print All Variables"
+      }
     ],
-    "activationEvents": [
-        "onCommand:extension.insertFileHeaderComment",
-        "onCommand:extension.insertFileHeaderCommentOther"
-    ],
-    "main": "./extension",
-    "contributes": {
-        "commands": [{
-            "command": "extension.insertFileHeaderComment",
-            "title": "FileHeaderComment: Insert Default Template at Cursor"
-        },{
-            "command": "extension.insertFileHeaderCommentOther",
-            "title": "FileHeaderComment: Select from Available Templates"
-        }],
-            "configuration": {
-                "type": "object",
-                "title": "FileHeaderComment Configuration",
-                "properties": {
-                    "fileHeaderComment.parameter": {
-                        "type": "object",
-                        "default": {
-                            "*":{}
-                        },
-                        "description": "Configure parameter/variable used in comment"
-                    },
-                    "fileHeaderComment.template": {
-                        "type": "object",
-                        "default": {},
-                        "description": "Define custom template"
-                    }
-                }
-            }
+    "menus": {
+      "editor/context": [
+        {
+          "command": "fileheadercomment.insertFileHeaderComment",
+          "when": "editorTextFocus",
+          "group": "fileheadercomment"
+        },
+        {
+          "command": "fileheadercomment.insertFileHeaderCommentOther",
+          "when": "editorTextFocus",
+          "group": "fileheadercomment"
+        },
+        {
+          "command": "fileheadercomment.printParameters",
+          "when": "editorTextFocus",
+          "group": "fileheadercomment"
+        }
+      ]
     },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "devDependencies": {
-        "vscode": "^0.11.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/doi/fileheadercomment.git"
-    },
-    "bugs": {
-        "url": "https://github.com/doi/fileheadercomment/issues"
-    },
-    "license": "SEE LICENSE IN LICENSE.md"
+    "configuration": {
+      "type": "object",
+      "title": "FileHeaderComment Configuration",
+      "properties": {
+        "fileHeaderComment.parameter": {
+          "type": "object",
+          "default": {
+            "*": {}
+          },
+          "description": "Configure parameter/variable used in comment"
+        },
+        "fileHeaderComment.template": {
+          "type": "object",
+          "default": {},
+          "description": "Define custom template"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.6.0",
+    "vscode": "^0.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doi/fileheadercomment.git"
+  },
+  "bugs": {
+    "url": "https://github.com/doi/fileheadercomment/issues"
+  },
+  "license": "SEE LICENSE IN LICENSE.md"
 }
